@@ -15,6 +15,8 @@ public class GameWindow extends Application{
 	private static final char PLAYER_ID = '1';
 	private static final int DEFAULT_SIZE = 60;
 	private static final int IMAGE_COUNT = 6;
+	public static int playerLocation;
+	public static int mazeExit;
 	private GameView view;
 	private GameModel model;
 	private int currentRow;
@@ -34,6 +36,10 @@ public class GameWindow extends Application{
 		Scene scene = new Scene(box);
 		scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
 		stage.setScene(scene);
+		
+		// Setting a random maze exit location
+		mazeExit = (int)(30 * Math.random() - 1);
+		System.out.println("Maze Exit Initialized. Find Exit!");
 		
     	Sprite[] sprites = getSprites(); //Load the sprites from the res directory
     	view.setSprites(sprites); //Add the sprites to the view
@@ -63,7 +69,11 @@ public class GameWindow extends Application{
         	return;
         }
         
-        updateView();       
+        updateView();  
+        
+        playerLocation = currentRow + currentCol;
+        //System.out.println("Player located at: " + playerLocation);
+        MazeExitLocator.mazeExitLocator();
     }
 	
 	private void placePlayer(){  //Place the main player character	

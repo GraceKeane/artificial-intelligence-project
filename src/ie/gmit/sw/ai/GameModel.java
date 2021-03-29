@@ -93,9 +93,10 @@ public class GameModel {
 				 * IMPORTANT! Change the following to parameterise your CharacterTask with an instance of
 				 * Command. The constructor call below is only parameterised with a lambda expression. 
 				 */
-				tasks.add(new CharacterTask(this, enemyID, row, col, ()-> System.out.println("Action executing!")));
+				//tasks.add(new CharacterTask(this, enemyID, row, col, ()-> System.out.println("Action executing!")));
+				tasks.add(new CharacterTask(this, enemyID, row, col, new FuzzyLogic()));
 				counter++;
-			}
+			} // Else if enemy with another ID - Call specific task
 		}
 	}
 	

@@ -1,8 +1,19 @@
 package ie.gmit.sw.ai;
 
 import javafx.application.Application;
+import net.sourceforge.jFuzzyLogic.FIS;
+
+/**
+ * @author Grace Keane
+ * 
+ * Reads in Fuzzy logic files & starts game.
+ * 
+ */
 
 public class Runner {
+	
+	public static FIS fis;
+	
 	public static void main(String[] args) {
 		/*
 		 * PLEASE READ CAREFULLY
@@ -19,9 +30,15 @@ public class Runner {
 		 * CLASSPATH). 
 		 */
 		
-		  //Add long-running initialisation instructions here.
+		 //Add long-running initialisation instructions here.
+		 
+		fis = FIS.load("./fuzzy/findExit.fcl", true);
 		
-		
+		if (fis == null) {
+			System.out.println("Unable to load findExit.fcl");
+			return;
+		}
+		 
 		
 		/*
 		 * Launch the JavaFX UI only when all the long-running AI 
