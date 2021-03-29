@@ -4,6 +4,11 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
+/**
+ * @author Grace Keane
+ * 
+ */
+
 public class ExitHelper {
 	
 	private final FIS fis = Runner.fis;

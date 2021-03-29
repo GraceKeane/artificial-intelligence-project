@@ -29,11 +29,11 @@ public class Runner {
 		 * available and configured on the MODULE-PATH (NOT THE 
 		 * CLASSPATH). 
 		 */
+				 
+		// Loading in the fcl file first to prevent freezing/ crashing program
+		fis = FIS.load("./resources/fuzzy/findExit.fcl", true);
 		
-		 //Add long-running initialisation instructions here.
-		 
-		fis = FIS.load("./fuzzy/findExit.fcl", true);
-		
+		// Error handling
 		if (fis == null) {
 			System.out.println("Unable to load findExit.fcl");
 			return;

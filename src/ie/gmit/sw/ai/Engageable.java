@@ -3,7 +3,7 @@ package ie.gmit.sw.ai;
 /**
  * @author Grace Keane
  * 
- *  Interface for enemy engage.
+ * Interface for enemy attack/engage.
  */
 public interface Engageable {
 	

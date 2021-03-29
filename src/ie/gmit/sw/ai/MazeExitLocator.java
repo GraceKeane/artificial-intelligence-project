@@ -20,9 +20,9 @@ public class MazeExitLocator {
         } else if (fuzzyValue >= 60) {
             System.out.println("Player is Getting There");
         } else if (fuzzyValue >= 30) {
-            System.out.println("Player is Very Close");
-        } else if (fuzzyValue >= 20) {
             System.out.println("Player is So Close");
+        } else if (fuzzyValue >= 20) {
+            System.out.println("Player is Very Close");
         } else if (fuzzyValue >= 10) {
             System.out.println("Player is Extremely Close");
         }
