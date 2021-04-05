@@ -1,0 +1,139 @@
+FUNCTION_BLOCK findEnemy // Maps to a method
+
+    VAR_INPUT	// input params
+	 playerLocation : REAL;
+         enemyLocation : REAL;
+    END_VAR
+
+    VAR_OUTPUT  // return type 
+        player : REAL;
+    END_VAR
+
+    // Terms based on working out player's location in GameWindow's keyPressed & MazeExitLocator.
+    // 8 terms to cover all locations.
+    FUZZIFY playerLocation
+        TERM northWest := (0,0) (5,1) (10,0);
+        TERM north := (10,0) (15,1) (20,0);
+        TERM northEast := (20,0) (25,1) (30,0);
+        TERM centrum := (30,0) (35,1) (40,0);
+        TERM southWest := (40,0) (45,1) (50,0);
+        TERM south := (50,0) (55,1) (60,0);
+        TERM southEast := (60,0) (65,1) (70,0);
+        TERM east:= (80,0) (100,1) (120,0);
+    END_FUZZIFY
+
+    // 8 terms to cover all possible locations enemies could be.
+    FUZZIFY enemyLocation
+	TERM locationOne := (0,0) (5,1) (10,0);
+        TERM locationTwo := (10,0) (15,1) (20,0);
+        TERM locationThree := (20,0) (25,1) (30,0);
+	TERM locationFour := (30,0) (35,1) (40,0);
+	TERM locationFive := (40,0) (45,1) (50,0);
+	TERM locationSix := (50,0) (55,1) (60,0);
+	TERM locationSeven := (60,0) (65,1) (70,0);
+	TERM locationEight := (80,0) (100,1) (120,0);
+
+     END_FUZZIFY
+
+    // Terms to identify how close the player is from the enemy
+    DEFUZZIFY player // method body
+        TERM enemyFrozen := 180;
+        TERM enemyPerished := 150;
+    	TERM enemyCold := 120;
+    	TERM enemyChill := 80;
+    	TERM enemyWarm := 60;
+    	TERM enemyHot := 30;
+    	TERM enemyBoiling := 20;
+    	TERM enemySteamingHot := 10;
+    	METHOD : COGS;		// 'Center Of Gravity Sugeno' defuzzification method
+    	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+    END_DEFUZZIFY
+
+    // Inference rules set - Used a Brute Force approach to cover all possible mazeExits.
+    RULEBLOCK No1
+    	AND : MIN;	// 'min' for 'and'
+    	ACT : MIN;	// 'min' activation method
+    	ACCU : MAX;	// 'max' accumulation method
+    	// if playerLocation is in locationOne(1 - 10)
+    	RULE 1 : IF playerLocation IS east AND enemyLocation IS locationOne THEN player IS enemyFrozen;
+    	RULE 2 : IF playerLocation IS southEast AND enemyLocation IS locationOne THEN player IS enemyPerished;
+    	RULE 3 : IF playerLocation IS south AND enemyLocation IS locationOne THEN player IS enemyCold;
+    	RULE 4 : IF playerLocation IS southWest AND enemyLocation IS locationOne THEN player IS enemyChill; 
+    	RULE 5 : IF playerLocation IS centrum AND enemyLocation IS locationOne THEN player IS enemyWarm;
+    	RULE 6 : IF playerLocation IS northEast AND enemyLocation IS locationOne THEN player IS enemyHot; 
+    	RULE 7 : IF playerLocation IS north AND enemyLocation IS locationOne THEN player IS enemyBoiling;
+        RULE 8 : IF playerLocation IS northWest AND enemyLocation IS locationOne THEN player IS enemySteamingHot;
+
+        // if playerLocation is in locationTwo (11 - 20)
+        RULE 9  : IF playerLocation IS east AND enemyLocation IS locationTwo THEN player IS enemyFrozen;
+        RULE 10 : IF playerLocation IS southEast AND enemyLocation IS locationTwo THEN player IS enemyPerished;
+        RULE 11 : IF playerLocation IS south AND enemyLocation IS locationTwo THEN player IS enemyCold;
+        RULE 12 : IF playerLocation IS southWest AND enemyLocation IS locationTwo THEN player IS enemyChill;
+        RULE 13 : IF playerLocation IS centrum AND enemyLocation IS locationTwo THEN player IS enemyWarm; 
+        RULE 14 : IF playerLocation IS northEast AND enemyLocation IS locationTwo THEN player IS enemyHot; 
+        RULE 15 : IF playerLocation IS north AND enemyLocation IS locationTwo THEN player IS enemyBoiling;
+        RULE 16 : IF playerLocation IS northWest AND enemyLocation IS locationTwo THEN player IS enemySteamingHot;
+
+        // if playerLocation is in locationThree (21 - 30)
+        RULE 17 : IF playerLocation IS east AND enemyLocation IS locationThree THEN player IS enemyFrozen;
+        RULE 18 : IF playerLocation IS southEast AND enemyLocation IS locationThree THEN player IS enemyPerished;
+        RULE 19 : IF playerLocation IS south AND enemyLocation IS locationThree THEN player IS enemyCold;
+        RULE 20 : IF playerLocation IS southWest AND enemyLocation IS locationThree THEN player IS enemyChill;
+        RULE 21 : IF playerLocation IS centrum AND enemyLocation IS locationThree THEN player IS enemyWarm; 
+        RULE 22 : IF playerLocation IS northEast AND enemyLocation IS locationThree THEN player IS enemyHot; 
+        RULE 23 : IF playerLocation IS north AND enemyLocation IS locationThree THEN player IS enemyBoiling;
+        RULE 24 : IF playerLocation IS northWest AND enemyLocation IS locationThree THEN player IS enemySteamingHot; 
+
+
+	// if playerLocation is in locationFour (31 - 40)
+        RULE 25 : IF playerLocation IS east AND enemyLocation IS locationFour THEN player IS enemyFrozen;
+        RULE 26 : IF playerLocation IS southEast AND enemyLocation IS locationFour THEN player IS enemyPerished;
+        RULE 27 : IF playerLocation IS south AND enemyLocation IS locationFour THEN player IS enemyCold;
+        RULE 28 : IF playerLocation IS southWest AND enemyLocation IS locationFour THEN player IS enemyChill;
+        RULE 29 : IF playerLocation IS centrum AND enemyLocation IS locationFour THEN player IS enemyWarm; 
+        RULE 30 : IF playerLocation IS northEast AND enemyLocation IS locationFour THEN player IS enemyHot; 
+        RULE 31 : IF playerLocation IS north AND enemyLocation IS locationFour THEN player IS enemyBoiling;
+        RULE 32 : IF playerLocation IS northWest AND enemyLocation IS locationFour THEN player IS enemySteamingHot;
+
+	// if playerLocation is in locationFive (41 - 50)
+        RULE 33 : IF playerLocation IS east AND enemyLocation IS locationFive THEN player IS enemyFrozen;
+        RULE 34 : IF playerLocation IS southEast AND enemyLocation IS locationFive THEN player IS enemyPerished;
+        RULE 35 : IF playerLocation IS south AND enemyLocation IS locationFive THEN player IS enemyCold;
+        RULE 36 : IF playerLocation IS southWest AND enemyLocation IS locationFive THEN player IS enemyChill;
+        RULE 37 : IF playerLocation IS centrum AND enemyLocation IS locationFive THEN player IS enemyWarm; 
+        RULE 38 : IF playerLocation IS northEast AND enemyLocation IS locationFive THEN player IS enemyHot; 
+        RULE 39 : IF playerLocation IS north AND enemyLocation IS locationFive THEN player IS enemyBoiling;
+        RULE 40 : IF playerLocation IS northWest AND enemyLocation IS locationFive THEN player IS enemySteamingHot; 
+
+	// if playerLocation is in locationSix (51 - 60)
+        RULE 41 : IF playerLocation IS east AND enemyLocation IS locationSix THEN player IS enemyFrozen;
+        RULE 42 : IF playerLocation IS southEast AND enemyLocation IS locationSix THEN player IS enemyPerished;
+        RULE 43 : IF playerLocation IS south AND enemyLocation IS locationSix THEN player IS enemyCold;
+        RULE 44 : IF playerLocation IS southWest AND enemyLocation IS locationSix THEN player IS enemyChill;
+        RULE 45 : IF playerLocation IS centrum AND enemyLocation IS locationSix THEN player IS enemyWarm; 
+        RULE 46 : IF playerLocation IS northEast AND enemyLocation IS locationSix THEN player IS enemyHot; 
+        RULE 47 : IF playerLocation IS north AND enemyLocation IS locationSix THEN player IS enemyBoiling;
+        RULE 48 : IF playerLocation IS northWest AND enemyLocation IS locationSix THEN player IS enemySteamingHot; 
+
+	// if playerLocation is in locationSeven (61 - 70)
+        RULE 49 : IF playerLocation IS east AND enemyLocation IS locationSeven THEN player IS enemyFrozen;
+        RULE 50 : IF playerLocation IS southEast AND enemyLocation IS locationSeven THEN player IS enemyPerished;
+        RULE 51 : IF playerLocation IS south AND enemyLocation IS locationSeven THEN player IS enemyCold;
+        RULE 52 : IF playerLocation IS southWest AND enemyLocation IS locationSeven THEN player IS enemyChill;
+        RULE 53 : IF playerLocation IS centrum AND enemyLocation IS locationSeven THEN player IS enemyWarm; 
+        RULE 54 : IF playerLocation IS northEast AND enemyLocation IS locationSeven THEN player IS enemyHot; 
+        RULE 55 : IF playerLocation IS north AND enemyLocation IS locationSeven THEN player IS enemyBoiling;
+        RULE 56 : IF playerLocation IS northWest AND enemyLocation IS locationSeven THEN player IS enemySteamingHot; 
+
+	// if playerLocation is in locationEight (71 - 80)
+        RULE 57 : IF playerLocation IS east AND enemyLocation IS locationEight THEN player IS enemyFrozen;
+        RULE 58 : IF playerLocation IS southEast AND enemyLocation IS locationEight THEN player IS enemyPerished;
+        RULE 59 : IF playerLocation IS south AND enemyLocation IS locationEight THEN player IS enemyCold;
+        RULE 60 : IF playerLocation IS southWest AND enemyLocation IS locationEight THEN player IS enemyChill;
+        RULE 61 : IF playerLocation IS centrum AND enemyLocation IS locationEight THEN player IS enemyWarm; 
+        RULE 62 : IF playerLocation IS northEast AND enemyLocation IS locationEight THEN player IS enemyHot; 
+        RULE 63 : IF playerLocation IS north AND enemyLocation IS locationEight THEN player IS enemyBoiling;
+        RULE 64 : IF playerLocation IS northWest AND enemyLocation IS locationEight THEN player IS enemySteamingHot; 
+    END_RULEBLOCK
+
+END_FUNCTION_BLOCK

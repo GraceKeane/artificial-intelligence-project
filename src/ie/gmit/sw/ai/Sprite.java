@@ -2,7 +2,6 @@ package ie.gmit.sw.ai;
 
 import javafx.scene.image.Image;
 
-
 /*
  * Sprite container for the game. You should not have to alter anything in this class.
  */

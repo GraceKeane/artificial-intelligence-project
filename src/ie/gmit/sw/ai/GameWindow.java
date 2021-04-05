@@ -1,17 +1,21 @@
 package ie.gmit.sw.ai;
 
+import javax.swing.JLabel;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 
 /*
  * Main UI for the game. You should not have to alter anything in this class.
  * 
  */
-public class GameWindow extends Application{
+public class GameWindow extends Application {
 	private static final char PLAYER_ID = '1';
 	private static final int DEFAULT_SIZE = 60;
 	private static final int IMAGE_COUNT = 6;
@@ -21,7 +25,7 @@ public class GameWindow extends Application{
 	private GameModel model;
 	private int currentRow;
 	private int currentCol;
-
+	
 	@Override
     public void start(Stage stage) throws Exception {
 		model = new GameModel(DEFAULT_SIZE); //Create a model
@@ -35,10 +39,11 @@ public class GameWindow extends Application{
 		VBox box = new VBox();
 		Scene scene = new Scene(box);
 		scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
-		stage.setScene(scene);
-		
+		stage.setScene(scene);		
+    	
 		// Setting a random maze exit location
 		mazeExit = (int)(30 * Math.random() - 1);
+		System.out.println("Exit located at " + mazeExit);
 		System.out.println("Maze Exit Initialized. Find Exit!");
 		
     	Sprite[] sprites = getSprites(); //Load the sprites from the res directory
@@ -51,6 +56,7 @@ public class GameWindow extends Application{
 		//Display the window
 		stage.show();
 		stage.centerOnScreen();
+		
 	}
 	
     public void keyPressed(KeyEvent e) { //Handle key events
@@ -72,8 +78,10 @@ public class GameWindow extends Application{
         updateView();  
         
         playerLocation = currentRow + currentCol;
-        //System.out.println("Player located at: " + playerLocation);
         MazeExitLocator.mazeExitLocator();
+        
+        MazeEnemyLocator.mazeEnemyLocator();
+        
     }
 	
 	private void placePlayer(){  //Place the main player character	
@@ -84,6 +92,7 @@ public class GameWindow extends Application{
 	}
 	
 	private void updateView(){ 
+		
 		view.setCurrentRow(currentRow);
 		view.setCurrentCol(currentCol);
 	}
@@ -100,6 +109,11 @@ public class GameWindow extends Application{
 		sprites[2] = new Sprite("Pink Enemy", "/res/pink-0.png", "/res/pink-1.png", "/res/pink-2.png", "/res/pink-3.png", "/res/pink-4.png", "/res/pink-5.png", "/res/pink-6.png", "/res/pink-7.png");
 		sprites[3] = new Sprite("Blue Enemy", "/res/blue-0.png", "/res/blue-1.png", "/res/blue-2.png", "/res/blue-3.png", "/res/blue-4.png", "/res/blue-5.png", "/res/blue-6.png", "/res/blue-7.png");
 		sprites[4] = new Sprite("Red Green Enemy", "/res/gred-0.png", "/res/gred-1.png", "/res/gred-2.png", "/res/gred-3.png", "/res/gred-4.png", "/res/gred-5.png", "/res/gred-6.png", "/res/gred-7.png");
-		sprites[5] = new Sprite("Orange Enemy", "/res/orange-0.png", "/res/orange-1.png", "/res/orange-2.png", "/res/orange-3.png", "/res/orange-4.png", "/res/orange-5.png", "/res/orange-6.png", "/res/orange-7.png");		return sprites;
+		sprites[5] = new Sprite("Orange Enemy", "/res/orange-0.png", "/res/orange-1.png", "/res/orange-2.png", "/res/orange-3.png", "/res/orange-4.png", "/res/orange-5.png", "/res/orange-6.png", "/res/orange-7.png");		
+		
+		
+		
+		return sprites;
+		
 	}
 }

@@ -5,11 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
 /*
  * [WARNING] Don't mess with this class unless you know exactly what you're at... 
  */
@@ -29,6 +29,8 @@ public class GameView extends Canvas{
 	private GameModel model;
 	private Sprite[] sprites;
 	private int imageIndex = -1;
+	
+	private int enemy_state = 5;
 	
 	public GameView(GameModel model) throws Exception{
 		super(DEFAULT_VIEW_SIZE, DEFAULT_VIEW_SIZE);
@@ -101,6 +103,15 @@ public class GameView extends Canvas{
 
 	public void toggleZoom(){
 		zoom = !zoom;		
+	}
+	
+	public void actionPerformed(ActionEvent e) {	
+		if (enemy_state < 0 || enemy_state == 5){
+			enemy_state = 6;
+		}else{
+			enemy_state = 5;
+		}
+		this.draw();
 	}
 
 	public void setSprites(Sprite[] sprites){

@@ -13,6 +13,7 @@ import net.sourceforge.jFuzzyLogic.FIS;
 public class Runner {
 	
 	public static FIS fis;
+	public static FIS fis2;
 	
 	public static void main(String[] args) {
 		/*
@@ -29,14 +30,20 @@ public class Runner {
 		 * available and configured on the MODULE-PATH (NOT THE 
 		 * CLASSPATH). 
 		 */
-				 
-		// Loading in the fcl file first to prevent freezing/ crashing program
+				 		
+		// Loading in Fuzzy Logic files first to prevent freezing/ crashing the program
+		
+		// Fuzzy logic file to determine how far the player is from the exit
 		fis = FIS.load("./resources/fuzzy/findExit.fcl", true);
 		
+		// Fuzzy logic file to determine how far the player is from another enemy
+		fis2 = FIS.load("./resources/fuzzy/findEnemy.fcl", true);
+		
+		
 		// Error handling
-		if (fis == null) {
-			System.out.println("Unable to load findExit.fcl");
-			return;
+		if (fis == null || fis2 == null) {
+			System.out.println("Unable to load fuzzy logic file");
+			System.exit(0);
 		}
 		 
 		

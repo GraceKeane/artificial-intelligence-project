@@ -19,17 +19,21 @@ FUNCTION_BLOCK findExit // Maps to a method
         TERM southWest := (40,0) (45,1) (50,0);
         TERM south := (50,0) (55,1) (60,0);
         TERM southEast := (60,0) (65,1) (70,0);
-        TERM nowhereNear := (80,0) (100,1) (120,0);
+        TERM east := (80,0) (100,1) (120,0);
     END_FUZZIFY
 
-    // Maze exit location is randomly picked between 1 and 30.
+    // Maze exit location is randomly picked
     FUZZIFY mazeExit
-        TERM indexSpotOne := (0,0) (5,1) (10,0);
-        TERM indexSpotTwo := (10,0) (15,1) (20,0);
-        TERM indexSpotThree := (20,0) (25,1) (30,0);
+        TERM locationOne := (0,0) (5,1) (10,0);
+        TERM locationTwo := (10,0) (15,1) (20,0);
+        TERM locationThree := (20,0) (25,1) (30,0);
+	TERM locationFour := (30,0) (35,1) (40,0);
+	TERM locationFive := (40,0) (45,1) (50,0);
+	TERM locationSix := (50,0) (55,1) (60,0);
+	TERM locationSeven := (60,0) (65,1) (70,0);
+	TERM locationEight := (80,0) (100,1) (120,0);
      END_FUZZIFY
 
-    // temperatures tell how close the player is to the mazeExit.
     DEFUZZIFY player // method body
         TERM nowhereNear := 180;
         TERM notSoClose := 150;
@@ -48,35 +52,86 @@ FUNCTION_BLOCK findExit // Maps to a method
     	AND : MIN;	// 'min' for 'and'
     	ACT : MIN;	// 'min' activation method
     	ACCU : MAX;	// 'max' accumulation method
-    	// if mazeExit is in indexSpotOne (1 - 10)
-    	RULE 1 : IF playerLocation IS nowhereNear AND mazeExit IS indexSpotOne THEN player IS nowhereNear;
-    	RULE 2 : IF playerLocation IS southEast AND mazeExit IS indexSpotOne THEN player IS notSoClose;
-    	RULE 3 : IF playerLocation IS south AND mazeExit IS indexSpotOne THEN player IS closer;
-    	RULE 4 : IF playerLocation IS southWest AND mazeExit IS indexSpotOne THEN player IS near;
-    	RULE 5 : IF playerLocation IS centrum AND mazeExit IS indexSpotOne THEN player IS gettingThere;
-    	RULE 6 : IF playerLocation IS northEast AND mazeExit IS indexSpotOne THEN player IS soClose;
-    	RULE 7 : IF playerLocation IS north AND mazeExit IS indexSpotOne THEN player IS veryClose;
-        RULE 8 : IF playerLocation IS northWest AND mazeExit IS indexSpotOne THEN player IS extremelyClose;
 
-        // if mazeExit is in indexSpotTwo (11 - 20)
-        RULE 9 : IF playerLocation IS nowhereNear AND mazeExit IS indexSpotTwo THEN player IS nowhereNear;
-        RULE 10 : IF playerLocation IS southEast AND mazeExit IS indexSpotTwo THEN player IS notSoClose;
-        RULE 11 : IF playerLocation IS south AND mazeExit IS indexSpotTwo THEN player IS closer;
-        RULE 12 : IF playerLocation IS southWest AND mazeExit IS indexSpotTwo THEN player IS near;
-        RULE 13 : IF playerLocation IS centrum AND mazeExit IS indexSpotTwo THEN player IS gettingThere;
-        RULE 14 : IF playerLocation IS northEast AND mazeExit IS indexSpotTwo THEN player IS soClose;
-        RULE 15 : IF playerLocation IS north AND mazeExit IS indexSpotTwo THEN player IS veryClose;
-        RULE 16 : IF playerLocation IS northWest AND mazeExit IS indexSpotTwo THEN player IS extremelyClose;
+    	// if mazeExit is in locationOne (1 - 10)
+    	RULE 1 : IF playerLocation IS east AND mazeExit IS locationOne THEN player IS nowhereNear;
+    	RULE 2 : IF playerLocation IS southEast AND mazeExit IS locationOne THEN player IS notSoClose;
+    	RULE 3 : IF playerLocation IS south AND mazeExit IS locationOne THEN player IS closer;
+    	RULE 4 : IF playerLocation IS southWest AND mazeExit IS locationOne THEN player IS near;
+    	RULE 5 : IF playerLocation IS centrum AND mazeExit IS locationOne THEN player IS gettingThere;
+    	RULE 6 : IF playerLocation IS northEast AND mazeExit IS locationOne THEN player IS soClose;
+    	RULE 7 : IF playerLocation IS north AND mazeExit IS locationOne THEN player IS veryClose;
+        RULE 8 : IF playerLocation IS northWest AND mazeExit IS locationOne THEN player IS extremelyClose;
 
-        // if mazeExit is in indexSpotThree (21 - 30)
-        RULE 17 : IF playerLocation IS nowhereNear AND mazeExit IS indexSpotThree THEN player IS nowhereNear;
-        RULE 18 : IF playerLocation IS southEast AND mazeExit IS indexSpotThree THEN player IS notSoClose;
-        RULE 19 : IF playerLocation IS south AND mazeExit IS indexSpotThree THEN player IS closer;
-        RULE 20 : IF playerLocation IS southWest AND mazeExit IS indexSpotThree THEN player IS near;
-        RULE 21 : IF playerLocation IS centrum AND mazeExit IS indexSpotThree THEN player IS gettingThere;
-        RULE 22 : IF playerLocation IS northEast AND mazeExit IS indexSpotThree THEN player IS soClose;
-        RULE 23 : IF playerLocation IS north AND mazeExit IS indexSpotThree THEN player IS veryClose;
-        RULE 24 : IF playerLocation IS northWest AND mazeExit IS indexSpotThree THEN player IS extremelyClose;
+        // if mazeExit is in locationTwo (11 - 20)
+        RULE 9 : IF playerLocation IS east AND mazeExit IS locationTwo THEN player IS nowhereNear;
+        RULE 10 : IF playerLocation IS southEast AND mazeExit IS locationTwo THEN player IS notSoClose;
+        RULE 11 : IF playerLocation IS south AND mazeExit IS locationTwo THEN player IS closer;
+        RULE 12 : IF playerLocation IS southWest AND mazeExit IS locationTwo THEN player IS near;
+        RULE 13 : IF playerLocation IS centrum AND mazeExit IS locationTwo THEN player IS gettingThere;
+        RULE 14 : IF playerLocation IS northEast AND mazeExit IS locationTwo THEN player IS soClose;
+        RULE 15 : IF playerLocation IS north AND mazeExit IS locationTwo THEN player IS veryClose;
+        RULE 16 : IF playerLocation IS northWest AND mazeExit IS locationTwo THEN player IS extremelyClose;
+
+        // if mazeExit is in locationFour (21 - 30)
+        RULE 17 : IF playerLocation IS east AND mazeExit IS locationThree THEN player IS nowhereNear;
+        RULE 18 : IF playerLocation IS southEast AND mazeExit IS locationThree THEN player IS notSoClose;
+        RULE 19 : IF playerLocation IS south AND mazeExit IS locationThree THEN player IS closer;
+        RULE 20 : IF playerLocation IS southWest AND mazeExit IS locationThree THEN player IS near;
+        RULE 21 : IF playerLocation IS centrum AND mazeExit IS locationThree THEN player IS gettingThere;
+        RULE 22 : IF playerLocation IS northEast AND mazeExit IS locationThree THEN player IS soClose;
+        RULE 23 : IF playerLocation IS north AND mazeExit IS locationThree THEN player IS veryClose;
+        RULE 24 : IF playerLocation IS northWest AND mazeExit IS locationThree THEN player IS extremelyClose;
+
+	// if mazeExit is in locationFour (31 - 40)
+        RULE 25 : IF playerLocation IS east AND mazeExit IS locationFour THEN player IS nowhereNear;
+        RULE 26 : IF playerLocation IS southEast AND mazeExit IS locationFour THEN player IS notSoClose;
+        RULE 27 : IF playerLocation IS south AND mazeExit IS locationFour THEN player IS closer; 
+        RULE 28 : IF playerLocation IS southWest AND mazeExit IS locationFour THEN player IS near;
+        RULE 29 : IF playerLocation IS centrum AND mazeExit IS locationFour THEN player IS gettingThere;
+        RULE 30 : IF playerLocation IS northEast AND mazeExit IS locationFour THEN player IS soClose;
+        RULE 31 : IF playerLocation IS north AND mazeExit IS locationFour THEN player IS veryClose;
+        RULE 32 : IF playerLocation IS northWest AND mazeExit IS locationFour THEN player IS extremelyClose;
+
+	// if mazeExit is in locationFive (41 - 50)
+        RULE 33 : IF playerLocation IS east AND mazeExit IS locationFive THEN player IS nowhereNear;
+        RULE 34 : IF playerLocation IS southEast AND mazeExit IS locationFive THEN player IS notSoClose;
+        RULE 35 : IF playerLocation IS south AND mazeExit IS locationFive THEN player IS closer;
+        RULE 36 : IF playerLocation IS southWest AND mazeExit IS locationFive THEN player IS near;
+        RULE 37 : IF playerLocation IS centrum AND mazeExit IS locationFive THEN player IS gettingThere;
+        RULE 38 : IF playerLocation IS northEast AND mazeExit IS locationFive THEN player IS soClose;
+        RULE 39 : IF playerLocation IS north AND mazeExit IS locationFive THEN player IS veryClose;
+        RULE 40 : IF playerLocation IS northWest AND mazeExit IS locationFive THEN player IS extremelyClose;
+
+	// if mazeExit is in locationSix (51 - 60)
+        RULE 41 : IF playerLocation IS east AND mazeExit IS locationSix THEN player IS nowhereNear;
+        RULE 42 : IF playerLocation IS southEast AND mazeExit IS locationSix THEN player IS notSoClose; 
+        RULE 43 : IF playerLocation IS south AND mazeExit IS locationSix THEN player IS closer;
+        RULE 44 : IF playerLocation IS southWest AND mazeExit IS locationSix THEN player IS near;
+        RULE 45 : IF playerLocation IS centrum AND mazeExit IS locationSix THEN player IS gettingThere;
+        RULE 46 : IF playerLocation IS northEast AND mazeExit IS locationSix THEN player IS soClose;
+        RULE 47 : IF playerLocation IS north AND mazeExit IS locationSix THEN player IS veryClose;
+        RULE 48 : IF playerLocation IS northWest AND mazeExit IS locationSix THEN player IS extremelyClose;
+
+	// if mazeExit is in locationSeven (61 - 70)
+        RULE 49 : IF playerLocation IS east AND mazeExit IS locationSeven THEN player IS nowhereNear;
+        RULE 50 : IF playerLocation IS southEast AND mazeExit IS locationSeven THEN player IS notSoClose; 
+        RULE 51 : IF playerLocation IS south AND mazeExit IS locationSeven THEN player IS closer;
+        RULE 52 : IF playerLocation IS southWest AND mazeExit IS locationSeven THEN player IS near;
+        RULE 53 : IF playerLocation IS centrum AND mazeExit IS locationSeven THEN player IS gettingThere;
+        RULE 54 : IF playerLocation IS northEast AND mazeExit IS locationSeven THEN player IS soClose;
+        RULE 55 : IF playerLocation IS north AND mazeExit IS locationSeven THEN player IS veryClose;
+        RULE 56 : IF playerLocation IS northWest AND mazeExit IS locationSeven THEN player IS extremelyClose;
+
+	// if mazeExit is in locationEight (71 - 80)
+        RULE 57 : IF playerLocation IS east AND mazeExit IS locationEight THEN player IS nowhereNear;
+        RULE 58 : IF playerLocation IS southEast AND mazeExit IS locationEight THEN player IS notSoClose; 
+        RULE 59 : IF playerLocation IS south AND mazeExit IS locationEight THEN player IS closer;
+        RULE 60 : IF playerLocation IS southWest AND mazeExit IS locationEight THEN player IS near;
+        RULE 61 : IF playerLocation IS centrum AND mazeExit IS locationEight THEN player IS gettingThere;
+        RULE 62 : IF playerLocation IS northEast AND mazeExit IS locationEight THEN player IS soClose;
+        RULE 63 : IF playerLocation IS north AND mazeExit IS locationEight THEN player IS veryClose;
+        RULE 64 : IF playerLocation IS northWest AND mazeExit IS locationEight THEN player IS extremelyClose;
     END_RULEBLOCK
 
 END_FUNCTION_BLOCK
