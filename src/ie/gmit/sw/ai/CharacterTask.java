@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.concurrent.Task;
 
+
 /*
  * CharacterTask represents a Runnable (Task is a JavaFX implementation
  * of Runnable) game character. The character wanders around the game
@@ -39,6 +40,7 @@ public class CharacterTask extends Task<Void>{
 	private char enemyID;
 	private int row;
 	private int col;
+	public static int enemyLocation;
 
 	/*
 	 * Configure each character with its own action. Use this functional interface
@@ -77,6 +79,14 @@ public class CharacterTask extends Task<Void>{
             	}
             	
             	if (model.isValidMove(row, col, temp_row, temp_col, enemyID)) {
+            		            		
+            		// This is where to get hold of enemy location 
+            		enemyLocation = row + col;
+                    MazeEnemyLocator.mazeEnemyLocator();
+
+            		//System.out.println("An Enemy is Located at: " + enemyLocation);
+            		//System.out.println("In CharacterTask class. Enemy ID:" + enemyID);
+            		
             		/*
             		 * This fires if the character can move to a cell, i.e. if it is not
             		 * already occupied. You can add extra logic here to invoke
@@ -87,6 +97,7 @@ public class CharacterTask extends Task<Void>{
             		model.set(row, col, '\u0020');
             		row = temp_row;
             		col = temp_col;
+            		
             	}else {  
             		/*
             		 * This fires if a move is not valid, i.e. if someone or some thing 
@@ -94,9 +105,41 @@ public class CharacterTask extends Task<Void>{
             		 * computer controls this character. 
             		 */
             		cmd.execute();
+            		
+            		// Red enemy - run and attck player
+            		if(enemyID == '2') {
+            			if (enemyLocation != GameWindow.playerLocation) {
+	            			enemyLocation = GameWindow.playerLocation;
+		            		
+		            		System.out.println("Red enemy NN Attck");
+		            		System.out.println("Red enemy NN Run to Player");
+		            			
+            			}
+            		} else {
+            			// Other enemies panic and hide from the player
+            			NNExecute.panic();
+                		NNExecute.hide();
+                		System.out.println("NN Enemy Panic");
+            			System.out.println("NN Enemy Hide");
+            		}
+            		
+            		cmd.execute();
+            		
+            		temp_col += rand.nextBoolean() ? 1 : -1;
             	}
         	}
     	}
 		return null;
-    }
+	}
+
+    /**
+     * @param health passing in player health
+     * @param enemies passing in how many enemies
+     * 
+     * @return 0
+     */
+	public int nnTask(int health, int enemies) {
+		System.out.println("Health: " + health + "Enemies: " + enemies);
+		return 0;
+	}
 }

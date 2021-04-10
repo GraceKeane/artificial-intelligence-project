@@ -1,7 +1,7 @@
 FUNCTION_BLOCK findExit // Maps to a method
 
-    VAR_INPUT	// input params
-         playerLocation : REAL;
+    VAR_INPUT // input params (players location, maze exit location)
+         playerLocation : REAL; 
          mazeExit : REAL;
     END_VAR
 
@@ -10,7 +10,7 @@ FUNCTION_BLOCK findExit // Maps to a method
     END_VAR
 
     // Terms based on working out player's location in GameWindow's keyPressed & MazeExitLocator.
-    // 8 terms to cover all possible locations.
+    // 8 terms to cover all possible locations of the maze.
     FUZZIFY playerLocation
         TERM northWest := (0,0) (5,1) (10,0);
         TERM north := (10,0) (15,1) (20,0);
@@ -22,7 +22,7 @@ FUNCTION_BLOCK findExit // Maps to a method
         TERM east := (80,0) (100,1) (120,0);
     END_FUZZIFY
 
-    // Maze exit location is randomly picked
+    // Maze exit location is randomly picked from 1 - 8 locations
     FUZZIFY mazeExit
         TERM locationOne := (0,0) (5,1) (10,0);
         TERM locationTwo := (10,0) (15,1) (20,0);
@@ -47,12 +47,13 @@ FUNCTION_BLOCK findExit // Maps to a method
     	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
     END_DEFUZZIFY
 
-    // Inference rules set - Used a Brute Force approach to cover all possible mazeExits.
+    // Inference rules set - Using a Brute Force approach to find all possible maze exits.
     RULEBLOCK No1
     	AND : MIN;	// 'min' for 'and'
     	ACT : MIN;	// 'min' activation method
     	ACCU : MAX;	// 'max' accumulation method
 
+	// RULES
     	// if mazeExit is in locationOne (1 - 10)
     	RULE 1 : IF playerLocation IS east AND mazeExit IS locationOne THEN player IS nowhereNear;
     	RULE 2 : IF playerLocation IS southEast AND mazeExit IS locationOne THEN player IS notSoClose;

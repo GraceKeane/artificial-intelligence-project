@@ -7,6 +7,8 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 /**
  * @author Grace Keane
  * 
+ * Class that links to maze exit fuzzy logic file.
+ * 
  */
 
 public class ExitHelper {
@@ -15,7 +17,9 @@ public class ExitHelper {
 
     /**
      * getFuzzyHelper
-     *
+     * 
+     * @param playerLocation passing in the player location
+     * @param mazeExit passing in the player location
      * @return findExit.fcl prompts
      */
     public int getFuzzyHelper(int playerLocation, int mazeExit) {
@@ -27,6 +31,7 @@ public class ExitHelper {
         // Execute the fuzzy inference engine
         fis.evaluate();
         Variable findExit = fb.getVariable("player");
+        // Return fuzzy logic based on exit
         return (int) findExit.getValue();
     }
 }

@@ -1,7 +1,10 @@
 package ie.gmit.sw.ai;
 
-/*
- * Use implementations of this functional interface to specify
+
+/**
+ * @author Grace Keane 
+ * 
+ * Using implementations of this functional interface to specify
  * how a computer controlled game character should behave.
  */
 

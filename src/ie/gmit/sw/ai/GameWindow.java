@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-/*
+/* 
  * Main UI for the game. You should not have to alter anything in this class.
  * 
  */
@@ -20,17 +20,19 @@ public class GameWindow extends Application {
 	private static final int DEFAULT_SIZE = 60;
 	private static final int IMAGE_COUNT = 6;
 	public static int playerLocation;
+	public static int enemyLocation;
 	public static int mazeExit;
 	private GameView view;
 	private GameModel model;
 	private int currentRow;
 	private int currentCol;
+	public static Player player = new Player();
 	
 	@Override
     public void start(Stage stage) throws Exception {
 		model = new GameModel(DEFAULT_SIZE); //Create a model
     	view = new GameView(model); //Create a view of the model
-
+    	
     	stage.setTitle("GMIT - B.Sc. in Computing (Software Development) - AI Assignment 2021");
 		stage.setWidth(600);
 		stage.setHeight(630);
@@ -55,8 +57,7 @@ public class GameWindow extends Application {
     	
 		//Display the window
 		stage.show();
-		stage.centerOnScreen();
-		
+		stage.centerOnScreen();		
 	}
 	
     public void keyPressed(KeyEvent e) { //Handle key events
@@ -77,12 +78,14 @@ public class GameWindow extends Application {
         
         updateView();  
         
+        // Setting the player location to the current row + col
+        // the player is currently on
         playerLocation = currentRow + currentCol;
+        // Calling maze exit locator function 
         MazeExitLocator.mazeExitLocator();
-        
-        MazeEnemyLocator.mazeEnemyLocator();
-        
+          
     }
+    
 	
 	private void placePlayer(){  //Place the main player character	
     	currentRow = (int) (DEFAULT_SIZE * Math.random());
@@ -95,6 +98,7 @@ public class GameWindow extends Application {
 		
 		view.setCurrentRow(currentRow);
 		view.setCurrentCol(currentCol);
+		
 	}
 	
 	private Sprite[] getSprites() throws Exception{
@@ -110,8 +114,6 @@ public class GameWindow extends Application {
 		sprites[3] = new Sprite("Blue Enemy", "/res/blue-0.png", "/res/blue-1.png", "/res/blue-2.png", "/res/blue-3.png", "/res/blue-4.png", "/res/blue-5.png", "/res/blue-6.png", "/res/blue-7.png");
 		sprites[4] = new Sprite("Red Green Enemy", "/res/gred-0.png", "/res/gred-1.png", "/res/gred-2.png", "/res/gred-3.png", "/res/gred-4.png", "/res/gred-5.png", "/res/gred-6.png", "/res/gred-7.png");
 		sprites[5] = new Sprite("Orange Enemy", "/res/orange-0.png", "/res/orange-1.png", "/res/orange-2.png", "/res/orange-3.png", "/res/orange-4.png", "/res/orange-5.png", "/res/orange-6.png", "/res/orange-7.png");		
-		
-		
 		
 		return sprites;
 		

@@ -1,7 +1,5 @@
 package ie.gmit.sw.ai;
 
-import javafx.application.Platform;
-
 /**
  * @author Grace Keane
  * 
@@ -10,13 +8,18 @@ import javafx.application.Platform;
  * is from an enemy.
  * 
  */
-public class MazeEnemyLocator implements Command {
+public class MazeEnemyLocator {
 			
 		public static void mazeEnemyLocator() {
+			// Creating a new instance
 			FindEnemy fe = new FindEnemy();
 			
-		    int fuzzyValue = fe.getEnemyHelper(GameWindow.playerLocation, GameModel.enemyLocation);
+			// Calling correct params and setting the fuzzy value
+		    int fuzzyValue = fe.getEnemyHelper(GameWindow.playerLocation, CharacterTask.enemyLocation);
 		    
+		    // Fuzzy logic 
+		    // Determine how far the player is from the enemy.
+		    // Goes from hot to cold.
 		    if (fuzzyValue >= 180) {
 		        System.out.println("[ENEMY INFO] Enemy Frozen");
 		    } else if (fuzzyValue >= 150) {
@@ -34,12 +37,5 @@ public class MazeEnemyLocator implements Command {
 		    } else if (fuzzyValue >= 10) {
 		        System.out.println("[ENEMY INFO] Enemy Steaming");
 		    }
-		
-		}
-
-		@Override
-		public void execute() {
-			// TODO Auto-generated method stub
-			
 		}
 	}

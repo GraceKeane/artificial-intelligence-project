@@ -21,7 +21,6 @@ import javafx.concurrent.Task;
  */
 public class GameModel {
 	private static final int MAX_CHARACTERS = 10;
-	public static int enemyLocation;
 	private ThreadLocalRandom rand = ThreadLocalRandom.current();
 	private char[][] model;
 	
@@ -82,6 +81,7 @@ public class GameModel {
 		addGameCharacter(tasks, '\u0036', '0', MAX_CHARACTERS / 5); //6 is a Orange Enemy, 0 is a hedge
 		tasks.forEach(exec::execute);
 		
+		
 	}
 		
 	private void addGameCharacter(Collection<Task<Void>> tasks, char enemyID, char replace, int number){
@@ -92,23 +92,18 @@ public class GameModel {
 			
 			if (model[row][col] == replace){
 				model[row][col] = enemyID;
-						
 
 				/*
 				 * IMPORTANT! Change the following to parameterise your CharacterTask with an instance of
 				 * Command. The constructor call below is only parameterised with a lambda expression. 
 				 */
-				tasks.add(new CharacterTask(this, enemyID, row, col, new MazeEnemyLocator()));
-				//tasks.add(new CharacterTask(this, enemyID, row, col, new FuzzyLogic()));
+				// Changing parameters to add instance of command. Used to call neural enemy functions
+				tasks.add(new CharacterTask(this, enemyID, row, col, new Player()));
 				counter++;
+				}
 			} // Else if enemy with another ID - Call specific task
-
 		}
-		System.out.println("ENEMY ID: " + enemyID);
-		System.out.println("Enemy Location: " + enemyLocation);
-		enemyLocation = enemyID;
-		
-	}
+	
 	public boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol, char character){
 		if (toRow <= this.size() - 1 && toCol <= this.size() - 1 && this.get(toRow, toCol) == ' '){
 			this.set(fromRow, fromCol, '\u0020');
