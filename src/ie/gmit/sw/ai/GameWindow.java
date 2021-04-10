@@ -1,7 +1,5 @@
 package ie.gmit.sw.ai;
 
-import javax.swing.JLabel;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
